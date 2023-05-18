@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    command: npm run dev
+
+  mongo:
+    image: mongo
+
+  hello-node:
+    image: node:18
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: node hello.js
+
+  hello-php:
+    image: php:8.2-cli
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: php hello.php
+
+  hello-python:
+    image: python:3
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: python hello.py
+
+  hello-go:
+    image: golang:1.20
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: go run hello.go
+
+  hello-dart:
+    image: dart:3-sdk
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: dart run hello.dart
+
+  hello-java:
+    image: openjdk:8-jdk
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: bash -c "javac hello.java && java hello"
